@@ -1,0 +1,31 @@
+
+CREATE TABLE departement (
+    idDepartement INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE agent (
+    idAgent INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    prenom VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    motDePasse VARCHAR(100) NOT NULL,
+    typeAgent ENUM('OUVRIER','RESPONSABLE_DEPARTEMENT','DIRECTEUR','STAGIAIRE') NOT NULL,
+    idDepartement INT,
+    FOREIGN KEY (idDepartement) REFERENCES departement(idDepartement)
+);
+
+
+src/
+ └── main/
+      ├── java/
+      │    ├── model/               → Les classes métiers (Agent, Departement, Paiement, etc.)
+      │    ├── dao/                 → Accès base de données (CRUD via JDBC)
+      │    ├── repository/          → Interface entre DAO et Service (optionnel pour toi)
+      │    ├── service/             → Logique métier (traitements, calculs, règles)
+      │    ├── controller/          → Coordination entre service et vue
+      │    ├── view/ (ou ui/)       → Interface console (menus, affichage, saisie)
+      │    └── util/                → Classe de connexion JDBC + utilitaires
+      │
+      └── resources/                → Fichiers SQL, configuration, propriétés
+
