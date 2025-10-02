@@ -29,3 +29,18 @@ src/
       │
       └── resources/                → Fichiers SQL, configuration, propriétés
 
+
+Scanner sc = new Scanner(System.in);
+String choix;
+
+do {
+    System.out.print("Voulez-vous continuer ? (oui / non) : ");
+    choix = sc.nextLine().trim().toLowerCase();
+
+    if (!choix.equals("oui") && !choix.equals("non")) {
+        System.out.println("❌ Choix invalide ! Veuillez taper 'oui' ou 'non'.");
+    }
+
+} while (!choix.equals("oui") && !choix.equals("non"));
+
+System.out.println("✅ Vous avez choisi : " + choix);

@@ -3,6 +3,7 @@ package controller;
 import model.Departement;
 import service.DepartementService;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class DepartementController {
@@ -34,15 +35,17 @@ public class DepartementController {
     public void update(){
         System.out.println("entrer id de departement a modifier: ");
         int id= sc.nextInt();
+        sc.nextLine();
         Departement departement= departementService.findById(id);
+
         if(departement!= null){
-            System.out.println("entrer le nouveau nom de departement");
-            String newNom= sc.nextLine();
-            departement.setNom(newNom);
+            System.out.println("entrer le nouveau nom de de partement: ");
+            String nom= sc.nextLine();
+            departement.setNom(nom);
             departementService.update(departement);
-            System.out.println("le nom de departement a ete bien modifier");
+            System.out.println("Le nom du département a été bien modifié.");
         }else{
-            System.out.println("Désolé il n'ya aucune departement avec cet id");
+            System.out.println("Désolé, il n'y a aucun département avec cet ID.");
         }
     }
 }

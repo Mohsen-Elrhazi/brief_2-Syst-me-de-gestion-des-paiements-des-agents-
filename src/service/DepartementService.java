@@ -15,12 +15,9 @@ public class DepartementService {
     }
 
     public Departement findById(int id){
-        Departement departement = findById(id);
-        if(departement!= null){
-            return departement ;
-        }else{
-            return null;
-        }
+//        Departement departement = departementDAO.findById(id);
+//        return departement;
+       return departementDAO.findById(id);
     }
 
     public boolean delete(int id){

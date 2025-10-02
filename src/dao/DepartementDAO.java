@@ -17,19 +17,20 @@ public class DepartementDAO {
         this.conn= DatabaseConnection.getConnection();
     }
 
-    public Departement findById(int idDepartement){
+    public Departement findById(int id){
         String sql = "Select * from departement where idDepartement= ?";
         try(PreparedStatement ps= conn.prepareStatement(sql)){
-            ps.setInt(1, idDepartement);
+            ps.setInt(1, id);
             try(ResultSet rs= ps.executeQuery()){
                 if(rs.next()) {
-                    int id= rs.getInt("idDepartement");
+                    int idDepart= rs.getInt("idDepartement");
                     String nom= rs.getString("nom");
-                    return new Departement(id, nom, null);
+                    return new Departement(idDepart, nom, null);
                 }
             }
         }catch(SQLException e){
             e.printStackTrace();
+            System.out.println(("eroor"+ e.getMessage()));
         }
         return null;
     }
@@ -60,7 +61,7 @@ public class DepartementDAO {
     }
 
     public boolean update(Departement departement){
-        String sql= "update departement set nom= ? where id= ?";
+        String sql= "update departement set nom= ? where idDepartement= ?";
         try(PreparedStatement ps= conn.prepareStatement(sql)){
             ps.setString(1, departement.getNom());
             ps.setInt(2, departement.getIdDepartement());
