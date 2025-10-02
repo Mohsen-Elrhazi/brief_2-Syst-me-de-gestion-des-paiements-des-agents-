@@ -3,6 +3,8 @@ package service;
 import dao.AgentDAO;
 import model.Agent;
 
+import java.sql.SQLException;
+
 public class AgentService {
     private AgentDAO agentDAO;
 
@@ -25,4 +27,14 @@ public class AgentService {
         }
         return null;
     }
+
+    public boolean findById(int id){
+        return agentDAO.delete(id);
+    }
+
+    public boolean delete(int id){
+        return agentDAO.delete(id);
+    }
+
+
 }

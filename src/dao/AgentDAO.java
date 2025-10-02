@@ -45,29 +45,55 @@ public class AgentDAO {
 //            return false;
 //        }
 //    }
-public Agent findByEmail(String email){
-    String sql= "Select * from agent where email= ?";
-    try(PreparedStatement ps= conn.prepareStatement(sql)){
-        ps.setString(1, email );
-       try(ResultSet rs= ps.executeQuery()){
-           if(rs.next()) {
-              int idAgent= rs.getInt("idAgent");
-               String nom= rs.getString("nom");
-               String prenom= rs.getString("prenom");
-               String motDePasse= rs.getString("motDePasse");
-               TypeAgent typeAgent = TypeAgent.valueOf(rs.getString("typeAgent").toUpperCase());
+    public Agent findByEmail(String email) {
+    String sql = "Select * from agent where email= ?";
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, email);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                int idAgent = rs.getInt("idAgent");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                String motDePasse = rs.getString("motDePasse");
+                TypeAgent typeAgent = TypeAgent.valueOf(rs.getString("typeAgent").toUpperCase());
 
-               int idDepartement= rs.getInt("idDepartement");
-               Departement departement= departementDAO.findById(idDepartement);
+                int idDepartement = rs.getInt("idDepartement");
+                Departement departement = departementDAO.findById(idDepartement);
 
-               return new Agent(idAgent, nom, prenom, email, motDePasse,typeAgent,departement);
-           }
-       }
+                return new Agent(idAgent, nom, prenom, email, motDePasse, typeAgent, departement);
+            }
+        }
 
-    }catch(SQLException e){
+    } catch (SQLException e) {
         e.printStackTrace();
     }
-    return null;
-}
+        return null;
+    }
+
+    public boolean findById(int id){
+        String sql= "select * from agent where id= ?";
+        try(PreparedStatement ps= conn.prepareStatement(sql)){
+            ps.setInt(1, id);
+            try(ResultSet rs= ps.executeQuery()){
+                    return rs.next();
+            }
+        }catch(SQLException e){
+        e.printStackTrace();
+        return false;
+        }
+    }
+
+    public boolean delete(int id){
+        String sql= "delete from agent where idAgent= ? ";
+        try(PreparedStatement ps= conn.prepareStatement(sql)){
+            ps.setInt(1, id);
+            int row= ps.executeUpdate();
+            return row>0;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 }

@@ -60,4 +60,17 @@ public class AuthController {
             System.out.println("Email ou mot de passe incorrect");
         }
     }
+
+    public void delete() {
+        System.out.println("entrer id d'agent a supprimer: ");
+        int id = sc.nextInt();
+
+        if (agentService.findById(id)) {
+            agentService.delete(id);
+            System.out.println("L'agent a été bien supprimé");
+        } else {
+            System.out.println("Agent avec cet id n'existe pas");
+        }
+    }
+
 }
